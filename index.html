@@ -1,0 +1,303 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://pyscript.net/releases/2026.7.3/core.css" />
+    <script type="module" src="https://pyscript.net/releases/2026.7.3/core.js"></script>
+
+    <title>Glee Club: Verification System</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Trebuchet MS", Arial, sans-serif;
+            background: #fff8ef;
+            color: #986b7e;
+        }
+
+        /* Navigation Bar */
+        header {
+            background: #fff0ad;
+            padding: 18px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            border-bottom: 5px solid #ffe5a0;
+        }
+
+        .logo {
+            color: #e97591;
+            font-size: 27px;
+            font-weight: bold;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #c9788d;
+            margin-left: 20px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #e97591;
+        }
+
+        /* Main Section */
+        main {
+            min-height: 85vh;
+            padding: 55px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            background:
+                radial-gradient(circle at 10% 15%, #ffe4e8 0, transparent 20%),
+                radial-gradient(circle at 90% 70%, #fff0b8 0, transparent 25%),
+                #fff8ef;
+        }
+
+        .music-note {
+            font-size: 45px;
+            color: #f49ab0;
+            margin-bottom: 5px;
+        }
+
+        h1 {
+            color: #e87591;
+            font-size: clamp(38px, 7vw, 65px);
+            margin: 5px 0;
+            text-shadow: 2px 3px #ffe0e6;
+        }
+
+        .tagline {
+            color: #d78a9e;
+            font-size: 15px;
+            letter-spacing: 3px;
+            font-weight: bold;
+        }
+
+        .intro {
+            font-size: 16px;
+            line-height: 1.8;
+            margin: 25px auto 30px;
+            max-width: 450px;
+        }
+
+        /* Verification Card */
+        .card {
+            background: #fffdf7;
+            max-width: 510px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 35px;
+            border: 2px solid #ffdfa0;
+            border-radius: 28px;
+            box-shadow: 0 9px 0 #f9e7c9;
+            position: relative;
+        }
+
+        .card h2 {
+            color: #e87591;
+            font-size: 24px;
+            margin-top: 0;
+        }
+
+        .card-description {
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+
+        /* Input Fields */
+        input[type="text"] {
+            display: block;
+            width: 100%;
+            padding: 15px 17px;
+            margin-bottom: 16px;
+            border: 2px solid #ffdfa0;
+            border-radius: 16px;
+            background: #fffaf0;
+            color: #986b7e;
+            font-family: inherit;
+            font-size: 15px;
+            outline: none;
+            transition: 0.2s;
+        }
+
+        input[type="text"]:focus {
+            border-color: #f49ab0;
+            background: #ffffff;
+            box-shadow: 0 0 0 4px #ffe9ee;
+        }
+
+        input[type="text"]::placeholder {
+            color: #b99aa7;
+        }
+
+        /* Search Button */
+        input[type="button"] {
+            background: #f58da7;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            padding: 14px 38px;
+            font-family: inherit;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 5px;
+            box-shadow: 0 5px 0 #df718d;
+            transition: 0.2s;
+        }
+
+        input[type="button"]:hover {
+            background: #eb7896;
+            transform: translateY(-2px);
+            box-shadow: 0 7px 0 #df718d;
+        }
+
+        input[type="button"]:active {
+            transform: translateY(3px);
+            box-shadow: 0 2px 0 #df718d;
+        }
+
+        /* Result Box */
+        #output {
+            background: #fff0f2;
+            border: 2px dashed #f6b2c2;
+            border-radius: 18px;
+            margin-top: 28px;
+            padding: 20px 15px;
+            min-height: 85px;
+            line-height: 1.7;
+            font-size: 15px;
+            overflow-wrap: anywhere;
+        }
+
+        .result-note {
+            color: #e87591;
+            font-size: 24px;
+        }
+
+        /* Footer */
+        footer {
+            background: #fff0ad;
+            padding: 20px;
+            text-align: center;
+            font-size: 13px;
+            color: #c9788d;
+            border-top: 4px solid #ffe5a0;
+        }
+
+        /* Mobile Layout */
+        @media (max-width: 600px) {
+            header {
+                justify-content: center;
+                text-align: center;
+                padding: 20px 12px;
+            }
+
+            .logo {
+                font-size: 24px;
+            }
+
+            nav a {
+                margin: 0 7px;
+                font-size: 13px;
+            }
+
+            main {
+                padding: 40px 16px;
+            }
+
+            .card {
+                padding: 25px 18px;
+            }
+
+            .tagline {
+                letter-spacing: 1px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="logo">♫ Glee Club ♡</div>
+
+        <nav>
+            <a href="#">Home</a>
+            <a href="#about">About</a>
+            <a href="#verification">Members</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="music-note">♫ ♪ ♡</div>
+
+        <h1>Glee Club</h1>
+
+        <p class="tagline">SING ✧ SUPPORT ✧ BELONG</p>
+
+        <p class="intro" id="about">
+            Every voice matters! 🎤<br>
+            Find out if you're officially part of
+            <strong>Glee Club 26-27!</strong>
+        </p>
+
+        <section class="card" id="verification">
+            <h2>🎀 Member Verification</h2>
+
+            <p class="card-description">
+                Enter your name below to check your membership.
+            </p>
+
+            <form onsubmit="return false;">
+                <input
+                    type="text"
+                    id="firstName"
+                    placeholder="Enter your first name"
+                    required
+                >
+
+                <input
+                    type="text"
+                    id="lastName"
+                    placeholder="Enter your last name"
+                    required
+                >
+
+                <input
+                    type="button"
+                    py-mouseover="candidate"
+                    value="♫ Search"
+                >
+            </form>
+
+            <div id="output">
+                <span class="result-note">♫</span>
+                <br>
+                Your result will appear here... ♡
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        ♡ Glee Club 2026-2027 ♡
+        <br>
+        Sing your heart out and let your voice shine!
+    </footer>
+
+    <py-script src="main.py"></py-script>
+
+</body>
+</html>
